@@ -2,6 +2,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
+import Blog from "./Blog";
 import { cities, apiKey } from "../constants/city";
 import { useState, useEffect } from "react";
 import { CardBody, CardHeader } from "react-bootstrap";
@@ -9,10 +10,26 @@ import { CardBody, CardHeader } from "react-bootstrap";
 const Home = () => {
   const [city, cityState] = useState("Bangalore");
   const [weather, setWeather] = useState(null);
+  const [car, carData] = useState(null);
   console.log("city", city);
   const changeCity = (e) => {
     cityState(e.target.value);
   };
+
+  useEffect(() => {
+    let blogs = [];
+    for (let key in window.localStorage) {
+      // let cars = key.includes("blog");
+      // carData("keys", key);
+      if (key.includes("blog")) {
+        console.log("key", key);
+        // carData(car.push(localStorage.getItem(key)));
+        let data = JSON.parse(localStorage.getItem(key));
+        blogs.push(data);
+      }
+    }
+    carData(blogs);
+  }, []);
   useEffect(() => {
     fetch(
       `http://api.openweathermap.org/geo/1.0/direct?q=Bangalore&appid=${apiKey}`
@@ -46,9 +63,9 @@ const Home = () => {
       .then((res) => res.json())
       .then((data) => setWeather(data));
   };
-  console.log("weather", weather);
   const weatherIcon = weather?.weather[0]?.icon;
   console.log("weathericon", weatherIcon);
+  console.log("car", car);
   return (
     <Container>
       <Row
@@ -126,6 +143,20 @@ const Home = () => {
           </Card>
         </Col>
       </Row>
+      <Row
+        style={{ display: "flex", justifyContent: "center", marginTop: "25px" }}
+      >
+        Create and Read mini Blogs :
+      </Row>
+      {car &&
+        car != null &&
+        car.map((c) => {
+          return (
+            <Row style={{ marginTop: "20px" }}>
+              <Blog props={c} />
+            </Row>
+          );
+        })}
     </Container>
   );
 };

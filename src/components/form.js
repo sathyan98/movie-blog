@@ -3,7 +3,11 @@ const Form = () => {
   const { register, handleSubmit } = useForm();
   const storeData = (data) => {
     console.log("data", data);
+    window.localStorage.setItem("blogs" + data?.title, JSON.stringify(data));
   };
+  for (let key in localStorage) {
+    console.log("keys", key);
+  }
   return (
     <div>
       <form onSubmit={handleSubmit(storeData)}>
