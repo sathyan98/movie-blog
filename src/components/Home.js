@@ -3,6 +3,7 @@ import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Card from "react-bootstrap/Card";
 import Blog from "./Blog";
+import { blogArr } from "../mock/blog";
 import { cities, apiKey } from "../constants/city";
 import { useState, useEffect } from "react";
 import { CardBody, CardHeader } from "react-bootstrap";
@@ -12,12 +13,13 @@ const Home = () => {
   const [weather, setWeather] = useState(null);
   const [car, carData] = useState(null);
   console.log("city", city);
+  console.log("blogArr", blogArr);
   const changeCity = (e) => {
     cityState(e.target.value);
   };
 
   useEffect(() => {
-    let blogs = [];
+    let blogs = [...blogArr];
     for (let key in window.localStorage) {
       // let cars = key.includes("blog");
       // carData("keys", key);
@@ -152,7 +154,7 @@ const Home = () => {
         car != null &&
         car.map((c) => {
           return (
-            <Row style={{ marginTop: "20px" }}>
+            <Row style={{ marginTop: "20px", marginBottom: "20px" }}>
               <Blog props={c} />
             </Row>
           );
