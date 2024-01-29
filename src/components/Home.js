@@ -34,7 +34,7 @@ const Home = () => {
   }, []);
   useEffect(() => {
     fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=Bangalore&appid=${apiKey}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=Bangalore&appid=${apiKey}`
     )
       .then((res) => res.json())
       .then((data) => {
@@ -51,7 +51,7 @@ const Home = () => {
 
   const getWeather = () => {
     fetch(
-      `http://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
+      `https://api.openweathermap.org/geo/1.0/direct?q=${city}&appid=${apiKey}`
     )
       .then((res) => res.json())
       .then((data) => {
